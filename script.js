@@ -1,120 +1,171 @@
-$(document).ready(function(){
-//Array of words for game
-var words = ['messi','kevin','crawfish','sushi','basketball','laptop','daniel','super', 'lambo']
+const letterContainer = document.getElementById("letter-container");
+const optionsContainer = document.getElementById("options-container");
+const userInputSection = document.getElementById("user-input-section");
+const newGameContainer = document.getElementById("new-game-container");
+const newGameButton = document.getElementById("new-game-button");
+const canvas = document.getElementById("canvas");
+const resultText = document.getElementById("result-text");
 
-//Choose random word using index
-var chosenWord = words[Math.floor(Math.random()*words.length)]
-var guessedLetters= []
-var remainingGuesses = 6
+let words = [
+    "Apple", "Blueberry", "Mandarin", "Pineapple", "Pomegranate", "Watermelon",
+    "Hedgehog", "Rhinoceros", "Squirrel", "Panther", "Walrus", "Zebra",
+    "India", "Hungary", "Kyrgyzstan", "Switzerland", "Zimbabwe", "Dominica"
+];
 
-//Displays underscores for each letter of the chosen word
-for(var i=0;i< chosenWord.length;i++){
-    $('#word-container').append('<div class="hidden-letter">_</div>')
-}
+let winCount = 0;
+let count = 0;
+let chosenWord = "";
 
-//Function to update the display of the guessed letters
-function updateGuesses(){
-    $('#guess-container').empty()
-    $('#guess-container').text("Guessed Letters: " + guessedLetters.join(', '))
-}
+const displayOptions = () => {
+    optionsContainer.style.display = "none";
+    optionsContainer.innerHTML = "";
+    generateWord(words[Math.floor(Math.random() * words.length)]);
+};
 
-//Function to check if the guess letter is in the chosen word
-function checkGuess(letter){
-    if(chosenWord.indexOf(letter) === -1){
-        remainingGuesses--
-        $('#remaining-guesses').text("Remaining Guesses: " + remainingGuesses)
-    }else {
-        //Reveal the guessed letter
-        $('.hidden-letter').each(function(index){
-            if(chosenWord[index] === letter){
-                $(this).text(letter)
-            }
-        })
-    }
-    updateGuesses()
-    checkGameStatus()
-}
-
-//Function to check if the game has been won or lost
-function checkGameStatus(){
-    if($('.hidden-letter:contains("_")').length ===0){
-        alert('Congratulations You Won!')
-        resetGame()
-    }else if(remainingGuesses === 0){
-        alert('You Suck! The word was: ' + chosenWord)
-        resetGame()
-    }
-}
-
-//Function to reset the game
-function resetGame(){
-    guessedLetters = []
-    remainingGuesses = 6
-    $('#remaining-guesses').text("Remaining Guesses: " + remainingGuesses)
-    $('#word-container').empty()
-    chosenWord = words[Math.floor(Math.random()*words.length)]
-    for(var i=0;i < chosenWord.length;i++){
-        $('#word-container').append('<div class="hidden-letter">_</div>')
-    }
-    updateGuesses()
-}
-
-//Event handler for key presses
-$(document).keypress(function(event){
-    var letter = String.fromCharCode(event.which).toLowerCase()
-    if(letter.match(/[a-z]/) && guessedLetters.indexOf(letter) === -1){
-        guessedLetters.push(letter)
-        checkGuess(letter)
-    }
-})
-
-//Event handler for reset button
-$('#reset-button').click(function(){
-    resetGame()
-})
-
-//Initial display of remaining guesses
-$('#remaining-gueses').text('Remaining Guesses: ' + remainingGuesses);
-})
-
-$(document).ready(function() {
-    // Timer variables
-    var timerInterval;
-    var timeLeft = 60; // Set initial time in seconds
-
-    // Start the timer
-    function startTimer() {
-        timerInterval = setInterval(function() {
-            timeLeft--;
-            updateTimerDisplay();
-            if (timeLeft === 0) {
-                clearInterval(timerInterval);
-                // Add any actions you want to happen when the time runs out
-                alert("Time's up!");
-            }
-        }, 1000); // Update every second
-    }
-
-    // Update the timer display
-    function updateTimerDisplay() {
-        var minutes = Math.floor(timeLeft / 60);
-        var seconds = timeLeft % 60;
-        var timerDisplay = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-        $("#remaining-time").text(timerDisplay);
-    }
-
-    // Call the startTimer function to begin counting down
-    startTimer();
-
-    // Your existing Hangman game logic can go here
-
-    // Example function to reset the game
-    $("#reset-button").click(function() {
-        // Reset the timer
-        clearInterval(timerInterval);
-        timeLeft = 60;
-        startTimer();
-
-        // Add any additional reset logic for your game here
+const blocker = () => {
+    let optionsButtons = document.querySelectorAll(".options");
+    let letterButtons = document.querySelectorAll(".letters");
+    optionsButtons.forEach((button) => {
+        button.disabled = true;
     });
-});
+    letterButtons.forEach((button) => {
+        button.disabled = true;
+    });
+    newGameContainer.classList.remove("hide");
+};
+
+const generateWord = (word) => {
+    let optionsButtons = document.querySelectorAll(".options");
+    optionsButtons.forEach((button) => {
+        if (button.innerText.toLowerCase() === word.toLowerCase()) {
+            button.classList.add("active");
+        }
+        button.disabled = true;
+    });
+    letterContainer.classList.remove("hide");
+    userInputSection.innerText = "";
+    chosenWord = word.toUpperCase();
+    let displayItem = chosenWord.replace(/./g, '<span class="dashes">_</span>');
+    userInputSection.innerHTML = displayItem;
+};
+
+const initializer = () => {
+    winCount = 0;
+    count = 0;
+    userInputSection.innerHTML = "";
+    optionsContainer.innerHTML = "";
+    letterContainer.classList.add("hide");
+    newGameContainer.classList.add("hide");
+    letterContainer.innerHTML = "";
+    for (let i = 65; i < 91; i++) {
+        let button = document.createElement("button");
+        button.classList.add("letters");
+        button.innerText = String.fromCharCode(i);
+        button.addEventListener("click", () => {
+            let charArray = chosenWord.split("");
+            let dashes = document.getElementsByClassName("dashes");
+            if (charArray.includes(button.innerText)) {
+                charArray.forEach((char, index) => {
+                    if (char === button.innerText) {
+                        dashes[index].innerText = char;
+                        winCount += 1;
+                        if (winCount == charArray.length) {
+                            resultText.innerHTML = `<h2 class='win-msg'>You Win!!</h2><p>The word was <span>${chosenWord}</span></p>`;
+                            blocker();
+                        }
+                    }
+                });
+            } else {
+                count += 1;
+                drawMan(count);
+                if (count == 6) {
+                    resultText.innerHTML = `<h2 class='lose-msg'>You Lose!!</h2><p>The word was <span>${chosenWord}</span></p>`;
+                    blocker();
+                }
+            }
+            button.disabled = true;
+        });
+        letterContainer.append(button);
+    }
+    displayOptions();
+    let { initialDrawing } = canvasCreator();
+    initialDrawing();
+};
+
+const canvasCreator = () => {
+    let context = canvas.getContext("2d");
+    context.beginPath();
+    context.strokeStyle = "#000";
+    context.lineWidth = 2;
+
+    const drawLine = (fromX, fromY, toX, toY) => {
+        context.moveTo(fromX, fromY);
+        context.lineTo(toX, toY);
+        context.stroke();
+    };
+
+    const head = () => {
+        context.beginPath();
+        context.arc(70, 30, 10, 0, Math.PI * 2, true);
+        context.stroke();
+    };
+
+    const body = () => {
+        drawLine(70, 40, 70, 80);
+    };
+
+    const leftArm = () => {
+        drawLine(70, 50, 50, 70);
+    };
+
+    const rightArm = () => {
+        drawLine(70, 50, 90, 70);
+    };
+
+    const leftLeg = () => {
+        drawLine(70, 80, 50, 110);
+    };
+
+    const rightLeg = () => {
+        drawLine(70, 80, 90, 110);
+    };
+
+    const initialDrawing = () => {
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        drawLine(10, 130, 130, 130);
+        drawLine(10, 10, 10, 131);
+        drawLine(10, 10, 70, 10);
+        drawLine(70, 10, 70, 20);
+    };
+
+    return { initialDrawing, head, body, leftArm, rightArm, leftLeg, rightLeg };
+};
+
+const drawMan = (count) => {
+    let { head, body, leftArm, rightArm, leftLeg, rightLeg } = canvasCreator();
+    switch (count) {
+        case 1:
+            head();
+            break;
+        case 2:
+            body();
+            break;
+        case 3:
+            leftArm();
+            break;
+        case 4:
+            rightArm();
+            break;
+        case 5:
+            leftLeg();
+            break;
+        case 6:
+            rightLeg();
+            break;
+        default:
+            break;
+    }
+};
+
+newGameButton.addEventListener("click", initializer);
+window.onload = initializer;
