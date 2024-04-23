@@ -5,7 +5,10 @@
   font-family: "Poppins", sans-serif;
 }
 body {
-  background-color: #8c52ff;
+  background-color: #597AE6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 2 1'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%23597AE6'/%3E%3Cstop offset='1' stop-color='%2340FFE9'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23E838DD' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23E838DD' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='2' y2='2'%3E%3Cstop offset='0' stop-color='%23E838DD' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23E838DD' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='2' height='1'/%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23b)' points='0 1 0 0 2 0'/%3E%3Cpolygon fill='url(%23c)' points='2 1 2 0 0 0'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
 }
 .container {
   font-size: 16px;
@@ -44,7 +47,7 @@ body {
   background-color: #efefef;
 }
 #options-container button.active {
-  background-color: #8c52ff;
+  background-color: #EBB9EA;
   border: 3px solid #000000;
   color: #fff;
 }
@@ -85,7 +88,7 @@ body {
 canvas {
   display: block;
   margin: auto;
-  border: 10px solid #8c52ff;
+  border: 10px solid #6759e6;
   border-radius: 10px;
 }
 .hide {
@@ -105,7 +108,7 @@ canvas {
 #new-game-button {
   font-size: 1.25em;
   padding: 0.5em 1em;
-  background-color: #8c52ff;
+  background-color: #6759e6;
   border: 3px solid #000000;
   color: #fff;
   border-radius: 0.2em;
