@@ -1,0 +1,78 @@
+body {
+    background-color: #3084FA;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 2 1'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%233084FA'/%3E%3Cstop offset='1' stop-color='%2330DBFF'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23FA45F7' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23FA45F7' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='0' y1='0' x2='2' y2='2'%3E%3Cstop offset='0' stop-color='%23FA45F7' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23FA45F7' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='2' height='1'/%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23b)' points='0 1 0 0 2 0'/%3E%3Cpolygon fill='url(%23c)' points='2 1 2 0 0 0'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-size: cover;
+    text-align: center;
+  }
+  
+  .containerGame {
+    color: white;
+  }
+  
+  .containerGame .header {
+    font-size: 50px;
+    font-family: Roxbowow;
+  }
+  
+  .hidden-letter {
+    display: inline-block;
+    width: 20px;
+    margin: 5px;
+    font-size: 24px;
+  }
+  
+  .guessed-letters {
+    margin-top: 20px;
+  }
+  
+  .reset {
+    align-items: center;
+    background-image: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 3px;
+    text-decoration: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  
+  .reset:active,
+  .reset:hover {
+    outline: 0;
+  }
+  
+  .reset span {
+    background-color: rgb(5, 6, 45);
+    padding: 16px 24px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: 300ms;
+  }
+  
+  .reset:hover span {
+    background: none;
+  }
+  
+  @media (min-width: 768px) {
+    .reset {
+      font-size: 24px;
+      min-width: 196px;
+    }
+  }
+  
