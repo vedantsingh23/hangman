@@ -2,9 +2,9 @@ const letterContainer = document.getElementById("letter-container");
 const optionsContainer = document.getElementById("options-container");
 const userInputSection = document.getElementById("user-input-section");
 const newGameContainer = document.getElementById("new-game-container");
-const newGameButton = document.getElementById("new-game-button");
+const newGame = document.getElementById("new-game-button");
 const canvas = document.getElementById("canvas");
-const resultText = document.getElementById("result-text");
+const result = document.getElementById("result-text");
 
 let words = [
     "Apple", "Blueberry", "Mandarin", "Pineapple", "Pomegranate", "Watermelon",
@@ -70,7 +70,7 @@ const initializer = () => {
                         dashes[index].innerText = char;
                         winCount += 1;
                         if (winCount == charArray.length) {
-                            resultText.innerHTML = `<h2 class='win-msg'>You Win!!</h2><p>The word was <span>${chosenWord}</span></p>`;
+                            result.innerHTML = `<h2 class='win-msg'>You Win!!</h2><p>The word was <span>${chosenWord}</span></p>`;
                             blocker();
                         }
                     }
@@ -79,7 +79,7 @@ const initializer = () => {
                 count += 1;
                 drawMan(count);
                 if (count == 6) {
-                    resultText.innerHTML = `<h2 class='lose-msg'>You Lose!!</h2><p>The word was <span>${chosenWord}</span></p>`;
+                    result.innerHTML = `<h2 class='lose-msg'>You Lose!!</h2><p>The word was <span>${chosenWord}</span></p>`;
                     blocker();
                 }
             }
@@ -167,5 +167,5 @@ const drawMan = (count) => {
     }
 };
 
-newGameButton.addEventListener("click", initializer);
+newGame.addEventListener("click", initializer);
 window.onload = initializer;
